@@ -26,7 +26,7 @@ def is_exec_file(file_path):
 
 
 def filter_owners(pattern, value):
-    return not (pattern is None or pattern.search(value) is None)
+    return pattern is None or pattern.search(value) is not None
 
 
 def scan(dir_path, owner_pattern):
