@@ -43,7 +43,10 @@ def scan(dir_path, owner_pattern):
             owner = get_file_owner(file_path)
 
             if filter_owners(owner_pattern, owner):
-                owner_info = scan_info.setdefault(owner, {'files': [], 'size': 0})
+                owner_info = scan_info.setdefault(owner, {
+                    'files': [], 
+                    'size': 0
+                })
                 owner_info.setdefault('files', []).append(file)
     except OSError as err:
         logger.error(err)
@@ -57,6 +60,9 @@ def scan(dir_path, owner_pattern):
             files_size += os.stat(file_path).st_size
 
         scan_info[owner]["size"] = files_size
-        logger.info("Owner: %s, count files: %d, size: %d", owner, len(scan_info[owner]["files"]), files_size)
+        logger.info("Owner: %s, count files: %d, size: %d", 
+                    owner, 
+                    len(scan_info[owner]["files"]), 
+                    files_size)
 
     return scan_info
